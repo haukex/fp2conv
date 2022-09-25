@@ -63,7 +63,7 @@ using the Arduino IDE 2.0.0.
 Python
 ------
 
-Simple Python bindings are provided in `fp2conv.py`.
+Simple Python bindings are provided in `pyfp2conv.py`.
 Tested on Python 3.10 on Linux.
 
 
