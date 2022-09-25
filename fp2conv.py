@@ -26,9 +26,11 @@ import ctypes
 _clib = ctypes.CDLL(Path(__file__).resolve().parent/"fp2conv.so")
 
 _strtofp2 = _clib.strtofp2
+_strtofp2.argtypes = [ctypes.c_char_p]
 _strtofp2.restype = ctypes.c_uint16
 
 _fp2tostr = _clib.fp2tostr
+_fp2tostr.argtypes = [ctypes.c_uint16, ctypes.c_char_p]
 _fp2tostr.restype = ctypes.c_uint8
 
 # from #defines in fp2conv.h
@@ -38,16 +40,16 @@ FP2_NAN     = 0x9FFE
 FP2_FAIL    = 0xFFFF
 
 def strtofp2(string :str) -> int:
-	"""Convert a string to a FP2 value."""
-	rv = _strtofp2(string.encode('ASCII'))
-	if rv==FP2_FAIL: raise ValueError(f"strtofp2 failed to parse {string!r}")
-	return rv
+    """Convert a string to a FP2 value."""
+    rv = _strtofp2(string.encode('ASCII'))
+    if rv==FP2_FAIL: raise ValueError(f"strtofp2 failed to parse {string!r}")
+    return rv
 
 def fp2tostr(fp2 :int) -> str:
-	"""Convert a FP2 value to a string."""
-	buf = ctypes.create_string_buffer(7)
-	rv = _fp2tostr(fp2, buf)
-	if rv<1: raise ValueError(f"fp2tostr failed to convert {fp2!r}")
-	assert rv==len(buf.value)
-	return buf.value.decode('ASCII')
+    """Convert a FP2 value to a string."""
+    buf = ctypes.create_string_buffer(7)
+    rv = _fp2tostr(fp2, buf)
+    if rv<1: raise ValueError(f"fp2tostr failed to convert {fp2!r}")
+    assert rv==len(buf.value)
+    return buf.value.decode('ASCII')
 
