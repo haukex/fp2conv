@@ -35,6 +35,8 @@ extern "C" {
 
 /** Convert a string to a FP2 value.
  * 
+ * The FP2 format is described in the README in this repository.
+ *
  * `str` is the null-terminated string to convert. The maximum string
  * length is 6 characters (max. of four significant digits, decimal
  * point, and optional minus sign). The decimal point must have digits
@@ -49,11 +51,13 @@ uint16_t strtofp2(const char *str);
 
 /** Convert a FP2 value to a string.
  * 
+ * The FP2 format is described in the README in this repository.
+ * 
  * `fp2` should be a valid FP2 value.
  * 
  * `outbuf` *must* be a pointer to a 7-byte buffer for the output,
  * which will be null-terminated iff the conversion is successful.
- * 
+ *
  * Returns the number of characters written to `outbuf`, excluding the
  * terminating null byte. If this function returns 0, `outbuf` must be
  * discarded as it may not be null-terminated or contain other junk.

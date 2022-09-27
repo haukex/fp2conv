@@ -102,6 +102,8 @@ uint8_t fp2tostr(uint16_t fp2, char *outbuf) {
 	int len;
 	switch (dot) {
 		case 0: len = snprintf(outbuf, 7, "%s%d",   neg, val); break;
+		// Floating-point accuracy should always be better than FP2,
+		// which is why it should be fine to use floating-point here:
 		case 1: len = snprintf(outbuf, 7, "%s%.1f", neg, val/10.0f); break;
 		case 2: len = snprintf(outbuf, 7, "%s%.2f", neg, val/100.0f); break;
 		case 3: len = snprintf(outbuf, 7, "%s%.3f", neg, val/1000.0f); break;
