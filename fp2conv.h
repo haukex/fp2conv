@@ -35,9 +35,12 @@ extern "C" {
 
 /** Convert a string to a FP2 value.
  * 
- * `str` is the null-terminated string to convert.
- * Next to decimal numbers, the strings `"NaN"`, `"Inf"`,
- * and `"-Inf"` are accepted case-insensitively.
+ * `str` is the null-terminated string to convert. The maximum string
+ * length is 6 characters (max. of four significant digits, decimal
+ * point, and optional minus sign). The decimal point must have digits
+ * on either side (i.e. `"123.0"` or `"123"` instead of `"123."`, and
+ * `"0.123"` instead of `".123"`). Next to decimal numbers, the strings
+ * `"NaN"`, `"Inf"`, and `"-Inf"` are accepted case-insensitively.
  * 
  * If this function returns `FP2_FAIL`, the conversion could not be
  * performed due to an invalid input format.
@@ -48,8 +51,8 @@ uint16_t strtofp2(const char *str);
  * 
  * `fp2` should be a valid FP2 value.
  * 
- * `outbuf` must be a pointer to a 7-byte buffer for the output, which
- * will be null-terminated iff the conversion is successful.
+ * `outbuf` *must* be a pointer to a 7-byte buffer for the output,
+ * which will be null-terminated iff the conversion is successful.
  * 
  * Returns the number of characters written to `outbuf`, excluding the
  * terminating null byte. If this function returns 0, `outbuf` must be
