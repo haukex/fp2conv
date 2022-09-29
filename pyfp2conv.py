@@ -50,7 +50,7 @@ def fp2tostr(fp2 :int) -> str:
     if not 0<=fp2<=0xFFFF: raise ValueError(f"fp2 value must be 16-bit unsigned int")
     buf = ctypes.create_string_buffer(7)
     rv = _fp2tostr(fp2, buf)
-    if rv<1: raise ValueError(f"fp2tostr failed to convert {fp2!r}")
+    if rv<1: raise ValueError(f"fp2tostr failed to convert {fp2:#04x}")
     assert rv==len(buf.value)
     return buf.value.decode('ASCII')
 
