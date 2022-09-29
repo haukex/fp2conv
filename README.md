@@ -66,6 +66,13 @@ Python
 Simple Python bindings are provided in `pyfp2conv.py`.
 Tested on Python 3.10 on Linux.
 
+Perl
+----
+
+Simple Perl FFI bindings are provided in `lib/Data/FP2.pm` with tests
+in `t/` (the latter can be run via `prove -l`). You must install the
+CPAN module `FFI::Platypus`. Tested on Perl 5.34 and 5.28 on Linux.
+
 
 Author, Copyright and License
 -----------------------------
