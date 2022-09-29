@@ -9,7 +9,7 @@ use File::Spec::Functions qw/ catdir updir /;
 
 Tests for Data::FP2
 
-=head1 Author, Copyright and License
+=head1 Author, Copyright, and License
 
 Copyright (c) 2022 Hauke Daempfling (haukex@zero-g.net)
 at the Leibniz Institute of Freshwater Ecology and Inland Fisheries (IGB),

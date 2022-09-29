@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Python wrapper for fp2conv C library.
 
-Author, Copyright and License
------------------------------
+Author, Copyright, and License
+------------------------------
 Copyright (c) 2022 Hauke Daempfling (haukex@zero-g.net)
 at the Leibniz Institute of Freshwater Ecology and Inland Fisheries (IGB),
 Berlin, Germany, https://www.igb-berlin.de/

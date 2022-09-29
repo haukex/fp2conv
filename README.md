@@ -74,8 +74,8 @@ in `t/` (the latter can be run via `prove -l`). You must install the
 CPAN module `FFI::Platypus`. Tested on Perl 5.34 and 5.28 on Linux.
 
 
-Author, Copyright and License
------------------------------
+Author, Copyright, and License
+------------------------------
 
 Copyright (c) 2022 Hauke Daempfling <haukex@zero-g.net>
 at the Leibniz Institute of Freshwater Ecology and Inland Fisheries (IGB),
