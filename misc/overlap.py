@@ -5,6 +5,8 @@ from collections import defaultdict
 # I was curious how many values in the FP2 data type are duplicated or unused
 # (e.g. '1' can be stored as 0001, 200A, 4064, and 63E8), this script checks
 
+# => "of 65536 possible values, 6332 or 9.7%, are duplicated (or unused)"
+
 VERBOSE = 0
 
 vals = defaultdict(list)
@@ -21,5 +23,5 @@ for k,v in sorted( vals.items(), key=lambda x: len(x[1]) ):
         if VERBOSE:
             print(f"{k!r}: {', '.join(map(lambda x: '%04X' % x,v))} => {dupevals}")
 
-print(f"of {0x10000} possible values, {dupevals} or {dupevals/0x10000:.1f}%, are duplicated (or unused)")
+print(f"of {0x10000} possible values, {dupevals} or {100.0*dupevals/0x10000:.1f}%, are duplicated (or unused)")
 
