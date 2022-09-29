@@ -4,6 +4,7 @@ use strict;
 use Test::More;
 use FindBin;
 use File::Spec::Functions qw/ catdir updir /;
+use JSON::PP 'decode_json';
 
 =head1 Synopsis
 
@@ -32,40 +33,20 @@ along with this program. If not, see L<https://www.gnu.org/licenses/>
 
 diag "This is Perl $] at $^X on $^O";
 
-# parse the C code - this is obviously very much dependent on the format of $testfile
-my $testfile = catdir($FindBin::Bin, updir, 'test_fp2conv.c');
-note "parsing tests from $testfile";
-my $ccode = do { open my $fh, '<', $testfile or die "$testfile: $!"; local $/; <$fh> };
+my $testfile = catdir($FindBin::Bin, updir, 'tests.json');
+my $tests = decode_json(
+	do { open my $fh, '<', $testfile or die "$testfile: $!"; local $/; <$fh> } );
+@$tests = grep { ref } @$tests;
 
-# get NUM_TESTS
-my ($numtests) = $ccode=~/^\s*#\s*define\s+NUM_TESTS\s+\(([0-9+* \t]+)\)\s*$/m
-	or die "failed to find NUM_TESTS";
-# stringy eval is "safe" here because we restricted the characters in the regex
-$numtests = eval $numtests or die "failed to parse NUM_TESTS";
-
-# get TEST
-my ($teststr) = $ccode=~/\bchar\s*\*\s*TEST\s*\[\s*NUM_TESTS\s*\]\s*=\s*\{(.+?)\}/s
-	or die "failed to find TEST";
-$teststr =~ s#^\s*//.*(?:\n|\z)##mg; # remove comments
-my @tests = map { s/^\s+|\s+$//g; $_ } grep /\S/, split ',', $teststr;
-
-# done parsing out tests
-die "parsing failed: NUM_TESTS ($numtests) doesn't match length of TEST (".(0+@tests).")"
-	unless @tests==$numtests;
-my $num_roundtrip_tests = grep { /^"R/ } @tests;
-
-# now actually run the tests
-plan tests => 1 + $num_roundtrip_tests*2 + ($numtests - $num_roundtrip_tests) + 2;
+my $num_roundtrip_tests = grep { $_->[0] eq 'R'} @$tests;
+plan tests => 1 + $num_roundtrip_tests*2 + (@$tests - $num_roundtrip_tests) + 2;
 
 use_ok 'Data::FP2', 'strtofp2', 'fp2tostr', 'FP2_FAIL';
 my $loc = $Data::FP2::FP2CONV_SO = $Data::FP2::FP2CONV_SO; # avoid "used only once"
 note "module loaded $loc";
 
-for my $test (@tests) {
-	my ($type,$fp2,$str) =
-		$test =~ /\A\s*"([RPS])((?:\\x[A-Fa-f0-9]{2}){2}) ([^"]*)"\s*\z/
-			or die $test;
-	$fp2 =~ tr/0-9a-fA-F//cd;
+for my $test (@$tests) {
+	my ($type,$fp2,$str) = @$test;
 	$fp2 = hex($fp2);
 	if ( $type ne 'S' )
 		{ is strtofp2($str), $fp2, sprintf("'%s' -> %#04x", $str, $fp2) }
