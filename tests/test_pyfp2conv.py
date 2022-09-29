@@ -25,6 +25,8 @@ class TestFP2Conv(unittest.TestCase):
                 with self.assertRaises(ValueError): fp2tostr(fp2)
             else:
                 self.assertEqual( s, fp2tostr(fp2) )
+        with self.assertRaises(ValueError): fp2tostr(-1)
+        with self.assertRaises(ValueError): fp2tostr(0x10000)
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()
