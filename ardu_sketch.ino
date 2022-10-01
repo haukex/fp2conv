@@ -17,6 +17,10 @@
  * along with this program. If not, see https://www.gnu.org/licenses/
  */
 
+/* **WARNING:** Don't compile this in the fp2conv project directory, as
+ * the Arduino tools may pick up and compile the other C files as well.
+ */
+
 #include "fp2conv.h"
 
 /* Tests with the Arduino IDE 2.0.0 show that including the functions
