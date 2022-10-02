@@ -24,6 +24,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#ifdef ARDUINO
+#include "Arduino.h"
+#endif
+
 #define FP2_POS_INF (0x1FFF)
 #define FP2_NEG_INF (0x9FFF)
 #define FP2_NAN     (0x9FFE)
