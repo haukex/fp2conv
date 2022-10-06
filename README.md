@@ -73,6 +73,9 @@ Simple Perl FFI bindings are provided in `lib/Data/FP2.pm` with tests in `t/`.
 The CPAN module `FFI::Platypus` is required.
 Tested on Perl 5.34 and 5.28 on Linux.
 
+Note: If `FFI::Platypus` fails to build due to a missing `xlocale.h`,
+a workaround is: `cd /usr/include && sudo ln -si locale.h xlocale.h`
+
 Tests
 -----
 
