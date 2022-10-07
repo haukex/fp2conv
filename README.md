@@ -50,7 +50,8 @@ Compilation
 -----------
 
 Using the provided `Makefile`, you can simply run `make` to build
-`fp2conv.so`, and `make test` to build and run `test_fp2conv.c`.
+`libfp2conv.so`, and `make test` to build and run `test_fp2conv.c`.
+The library and headers can be installed via `sudo make install`.
 Tested on Linux with gcc 7.5.0.
 
 Arduino
@@ -59,6 +60,9 @@ Arduino
 The `fp2conv.c` / `fp2conv.h` files were tested to be working on an
 Arduino MKR series board with a SAMD21 processor
 using the Arduino IDE 2.0.0.
+
+The source files can be installed to your local Arduino library path
+with `make ardulibinst`, assuming the default environment on Linux.
 
 Python
 ------

@@ -5,7 +5,7 @@ use strict;
 
 =head1 Name
 
-Data::FP2 - FFI bindings for fp2conv.so
+Data::FP2 - FFI bindings for libfp2conv.so
 
 =head1 Synopsis
 
@@ -54,9 +54,9 @@ use constant { # from #defines in fp2conv.h
 
 our @EXPORT_OK = qw/ strtofp2 fp2tostr FP2_POS_INF FP2_NEG_INF FP2_NAN FP2_FAIL /;
 
-# dependent on the actual directory layout, you may need to adjust this as needed
-our $FP2CONV_SO = abs_path( catfile((fileparse(__FILE__))[1], updir, updir, 'fp2conv.so') )
-	or die "Failed to find fp2conv.so at expected location: $!";
+our $FP2CONV_SO = 'libfp2conv.so';
+if ( my $libpath = $ENV{FP2CONV_LIB} )
+	{ $FP2CONV_SO = abs_path($libpath) or die "$libpath: $!" }
 
 my $ffi = FFI::Platypus->new( api => 2, lib => $FP2CONV_SO );
 $ffi->attach(                'strtofp2'   => ['string']             => 'uint16_t' );

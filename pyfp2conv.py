@@ -20,10 +20,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see https://www.gnu.org/licenses/
 """
-from pathlib import Path
+import os
 import ctypes
 
-_clib = ctypes.CDLL(Path(__file__).resolve().parent/"fp2conv.so")
+_clib = ctypes.CDLL(os.environ.get('FP2CONV_LIB', "libfp2conv.so"))
 
 _strtofp2 = _clib.strtofp2
 _strtofp2.argtypes = [ctypes.c_char_p]
